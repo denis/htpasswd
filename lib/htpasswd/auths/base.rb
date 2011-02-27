@@ -10,7 +10,7 @@ module Htpasswd
     def scheme(controller)
       case controller
       when ActionController::Base
-        returning authorization = instantiate(extract_header(controller.request.env)) do
+        (authorization = instantiate(extract_header(controller.request.env))).tap do
           authorization.set_controller(controller)
         end
       else
